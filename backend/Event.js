@@ -1,0 +1,24 @@
+//model - defining our table
+const { DataTypes } = require("sequelize"); //from library
+const sequelize = require("./db"); //our database
+
+const Event = sequelize.define("Event", {
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    description: {
+        type: DataTypes.STRING,
+    },
+    type: {
+        type: DataTypes.STRING,
+    },
+    location: {
+        type: DataTypes.STRING,
+    },
+    date: {
+        type: DataTypes.DATE,
+    }
+});
+
+module.exports = Event
