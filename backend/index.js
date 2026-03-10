@@ -25,6 +25,8 @@ app.get("/", (req, res) => {
 
 //GET 
 app.get("/events", async (req,res) => {
+    const {location} = req.query
+    console.log("LOCATION? ", location)
     try {
         const events = await Event.findAll();
         res.status(200).json(events);
