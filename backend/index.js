@@ -25,10 +25,17 @@ app.get("/", (req, res) => {
 
 //GET 
 app.get("/events", async (req,res) => {
-    const {location} = req.query
-    console.log("LOCATION? ", location)
+    const {location, keyword} = req.query
+    console.log("LOCATION? ", location, "keyword", keyword)
     try {
-        const events = await Event.findAll();
+        let events;
+        events = await Event.findAll();
+        if(location) {
+            events = events.filter((event) => event.location === location);
+        }
+        if(keyword) {
+            events = events.filter((event) => event.title.toLowerCase().includes(keyword.toLocaleLowerCase()))
+        } 
         res.status(200).json(events);
     } catch (error) {
         console.error(error)
