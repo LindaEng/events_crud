@@ -28,7 +28,7 @@ function EventCard() {
             }
         }
         fetchEvent();
-    },[])
+    },[event])
 
     return (
         <>

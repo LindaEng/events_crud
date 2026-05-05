@@ -96,13 +96,13 @@ app.patch("/events/:id", async (req, res) => {
 })
 
 app.put("/events/:id", async (req, res) => {
-    const updates = req.body // {title:sdfjskdl, location:skdjfljsk}
+    const updates = req.body 
     const {id} = req.params 
+    console.log(`ID: ${id}, REQBODY: ${JSON.stringify(updates)}`)
     try {
         const foundEvent = await Event.findByPk(id);
         await foundEvent.update(updates);
-        await foundEvent.save();
-        res.status(200).json({ message: `Event ${foundEvent.title} has been updated`})
+        res.status(200).json({ message: `Event has been updated`});
     } catch (error) {
         console.error(error)
         res.status(500).json({error: "bad request"})           

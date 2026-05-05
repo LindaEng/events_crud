@@ -41,6 +41,7 @@ function Events() {
 
   useEffect(() => {
     setFilteredEvents([...events]);
+    findLocations();
   }, [events]);
 
   useEffect(() => {
