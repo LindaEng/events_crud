@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEventsContext, updateEvent } from './hooks/EventHooks';
+import { useEventsContext } from './hooks/EventHooks';
 import type { EventType, FormData } from './types/EventType';
 
 
 
 function EventForm() {
-    const { events } = useEventsContext();
+    const { events, updateEvent } = useEventsContext();
     const navigate = useNavigate();
     const { id } = useParams();
     const isEditing = Boolean(id);
@@ -136,3 +136,7 @@ function EventForm() {
 }
 
 export default EventForm;
+
+function updateEvent(arg0: number, formData: FormData) {
+    throw new Error('Function not implemented.');
+}

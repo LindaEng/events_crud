@@ -1,7 +1,9 @@
 import { useState, useEffect, type ReactNode } from 'react';
 import { EventsContext } from '../contexts/EventsContext';
-import type { EventType } from "../types/EventType";
+import type { EventType, FormData } from "../types/EventType";
 import type { EventsContextType } from "../types/EventsContextType";
+
+
 
 
 export default function EventsProvider({ children } : {children:ReactNode}) {
@@ -30,11 +32,31 @@ export default function EventsProvider({ children } : {children:ReactNode}) {
         fetchEvents();
     }, []);
 
+
+    const updateEvent = async (id: number, form: FormData) => {
+        console.log("DIDDDD IT UPDATEEE FRONT END ", form)
+        try {
+            const response = await fetch(`http://localhost:3000/events/${id}`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(form)
+            })
+            const data = await response.json();
+            console.log("updated data", data)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    
     const value: EventsContextType = {
         events,
         loading,
         error,
-        refetch: fetchEvents  
+        refetch: fetchEvents,
+        updateEvent 
     }
 
     return (
@@ -43,4 +65,5 @@ export default function EventsProvider({ children } : {children:ReactNode}) {
         </EventsContext.Provider>
     )
 }
+
 
