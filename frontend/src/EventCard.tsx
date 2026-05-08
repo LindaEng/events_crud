@@ -8,7 +8,6 @@ const EMPTY_EVENT: EventType = {
   description: "",
   type: "",
   location: "",
-  date: new Date,
 }; //check if best practice later
 function EventCard() {
     const[event, setEvent] = useState<EventType>(EMPTY_EVENT);
@@ -37,7 +36,6 @@ function EventCard() {
             <p>{event.description}</p>
             <p>{event.type}</p>
             <p>{event.location}</p>
-            <p>{event.date && new Date(event.date).toLocaleDateString()}</p>
             <Link to="/events">Go Back</Link><br/>
             <Link to={`/events/edit-form/${id}`}>Edit</Link>
         </div>

@@ -14,6 +14,7 @@ function App() {
         <Route path="/events" element={<Events />}/>
         <Route path="/events/:id" element={<EventCard/>}/>
         <Route path="/events/edit-form/:id" element={<EventForm/>}/>
+        <Route path="/new-event-form" element={<EventForm/>}/>
       </Routes>
     </>
   )

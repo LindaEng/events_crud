@@ -18,7 +18,7 @@ export default function EventsProvider({ children } : {children:ReactNode}) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            console.log("DID THIS FETCH??????", data)
+
             setEvents(data)
         } catch (error) {
             setError("failed to get events");

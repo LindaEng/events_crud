@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEventsContext } from './hooks/EventHooks';
-import type { EventType, FormData } from './types/EventType';
+import type { FormData } from './types/EventType';
 
 
 
@@ -16,7 +16,7 @@ function EventForm() {
         title: '',
         description: '',
         type: '',
-        location: ''
+        location: '',
     });
     
     // Find the event directly from the events array
@@ -43,25 +43,42 @@ function EventForm() {
         }));
     };
 
+    const addEvent = async (form: FormData) => {
+        try {
+            const response = await fetch(`http://localhost:3000/events/`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(form)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Failed to create event. Status: ${response.status}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    };
+
     
     // Handle form submission
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
-        if (isEditing && id) {
-            // API call
-            updateEvent(parseInt(id), formData);
-            //redirect to events id
-            navigate(`/events/${id}`);
-        } else {
-            // Create new event
-            const newEvent: EventType = {
-                id: Date.now(),
-                ...formData,
-                date: new Date()
-            };
-            // addEvent(newEvent);
-            navigate('/events');
+        try {
+            if (isEditing && id) {
+                await updateEvent(parseInt(id), formData);
+                navigate(`/events/${id}`);
+            } else {
+                await addEvent(formData);
+                navigate('/events');
+            }
+        } catch (error) {
+            console.error('Unable to submit event form', error);
         }
     };
     
@@ -112,13 +129,14 @@ function EventForm() {
             </div>
             
             <div className="form-group">
-                <label htmlFor="location">Location</label>
+                <label htmlFor="location">Location *</label>
                 <input
                     type="text"
                     id="location"
                     name="location"
                     value={formData.location}
                     onChange={handleChange}
+                    required
                     placeholder="Venue name or online link"
                 />
             </div>
@@ -136,7 +154,3 @@ function EventForm() {
 }
 
 export default EventForm;
-
-function updateEvent(arg0: number, formData: FormData) {
-    throw new Error('Function not implemented.');
-}

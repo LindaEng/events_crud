@@ -1,10 +1,9 @@
 export type EventType = {
-  id: number,
+  id?: number,
   title: string,
   description?: string,
   type?: string,
-  location: string,
-  date: Date
+  location: string
 }
 
 // Interface for the form data
@@ -13,4 +12,5 @@ export type FormData = {
     description: string;
     type: string;
     location: string;
+
 }

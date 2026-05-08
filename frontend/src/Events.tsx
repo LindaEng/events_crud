@@ -102,11 +102,16 @@ function Events() {
           <option key={location} value={location}>{location}</option>
         ))}
       </select>
-        {filteredEvents.map((event) => (
-          <div key={event.id}>
-              <Link to={`/events/${event.id}`}><h3>{event.title}</h3></Link>
-          </div>
-        ))}
+      {/* Add a new event */}
+        <Link to="/new-event-form">Add new event</Link>
+        <div>
+          {filteredEvents.map((event) => (
+            <div key={event.id}>
+                <Link to={`/events/${event.id}`}><h3>{event.title}</h3></Link>
+            </div>
+          ))}
+        </div>
+      
     </>
   )
 }
