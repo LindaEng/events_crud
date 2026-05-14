@@ -6,7 +6,7 @@ import type { FormData } from './types/EventType';
 
 
 function EventForm() {
-    const { events, updateEvent } = useEventsContext();
+    const { events, updateEvent, refetch } = useEventsContext();
     const navigate = useNavigate();
     const { id } = useParams();
     const isEditing = Boolean(id);
@@ -75,6 +75,7 @@ function EventForm() {
                 navigate(`/events/${id}`);
             } else {
                 await addEvent(formData);
+                refetch();
                 navigate('/events');
             }
         } catch (error) {
