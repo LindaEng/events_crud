@@ -17,6 +17,7 @@ function EventForm() {
         description: '',
         type: '',
         location: '',
+        date: ''
     });
     
     // Find the event directly from the events array
@@ -29,7 +30,8 @@ function EventForm() {
                 title: foundEvent.title || '',
                 description: foundEvent.description || '',
                 type: foundEvent.type || '',
-                location: foundEvent.location || ''
+                location: foundEvent.location || '',
+                date: foundEvent.date || ''
             });
         }
     }, [foundEvent, isEditing]);
@@ -139,6 +141,18 @@ function EventForm() {
                     onChange={handleChange}
                     required
                     placeholder="Venue name or online link"
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="date">date *</label>
+                <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                    required
+                    placeholder="Choose a date"
                 />
             </div>
             

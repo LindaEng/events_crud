@@ -9,6 +9,7 @@ const EMPTY_EVENT: EventType = {
   description: "",
   type: "",
   location: "",
+  date: ""
 }; //check if best practice later
 
 function EventCard() {
@@ -59,6 +60,7 @@ function EventCard() {
             <p>{event.description}</p>
             <p>{event.type}</p>
             <p>{event.location}</p>
+            <p>{event.date && new Date(event.date).toLocaleDateString()}</p>
             <Link to="/events">Go Back</Link><br/>
             <Link to={`/events/edit-form/${id}`}>Edit</Link>
             <button onClick={handleDelete}>DELETE</button>
